@@ -17,8 +17,8 @@ let transporter = nodemailer.createTransport(
     service: "gmail",
     host: "smtp.gmail.com",
     auth: {
-      user: "somerealemail@gmail.com",
-      pass: "realpasswordforaboveaccount",
+      user: "info.matrixtech01@gmail.com",
+      pass: "Matrix786",
     },
   })
 );
@@ -29,11 +29,13 @@ app.get("/", (req, res) => {
 
 app.post("/contact", (req, res) => {
   console.log(req.body);
+  console.log("email" ,req.body.email,req.body.subject);
 
   try {
     let mailOptions = {
-      from: "somerealemail@gmail.com",
+      from: '"matrixtech01"<info.matrixtech01@gmail.com>', // sender address
       to: req.body.email,
+      recipients:[],
       subject: req.body.subject,
       text: req.body.comments,
     };
@@ -43,7 +45,6 @@ app.post("/contact", (req, res) => {
         console.log(error);
         return res.status(500).send({
           message: "something went wrong",
-          err: error.message,
         });
       } else {
         console.log("Email sent: " + info.response);
@@ -57,7 +58,6 @@ app.post("/contact", (req, res) => {
   } catch (error) {
     return res.status(500).send({
       message: "something went wrong",
-      err: error.message,
     });
   }
 });
